@@ -1,14 +1,23 @@
 {
   "name": "coins-rolled-up",
   "version": "1.0.0",
-  "description": "TypeScript, Jest",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "description": "Written in Node.js and TypeScript, testing with Jest",
   "scripts": {
-    "start:dev": "nodemon",
+    "start": "nodemon",
     "test": "jest"
   },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/monika-stempniak/coins-rolled-up.git"
+  },
+  "keywords": [],
+  "author": "monika-stempniak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/monika-stempniak/coins-rolled-up/issues"
+  },
+  "homepage": "https://github.com/monika-stempniak/coins-rolled-up",
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.41",
