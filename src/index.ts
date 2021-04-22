@@ -1,22 +1,10 @@
-const data = require("./data");
-interface Rolls {
-  rolls: number,
-  rest: number
-}
+import { coins as data } from "./data";
+import { DenominationCoins, CoinRolls } from "./types";
+import { DENOMINATION_OF_COINS } from "./constants";
 
-type DenominationCoins = Record<number, number>;
-type CoinRolls = Record<number, Rolls>;
+export const countCoinRolls = (coins: Array<number> = [], denomination: DenominationCoins): CoinRolls | null => {
+  if (coins.length === 0) return null;
 
-const DENOMINATION_OF_COINS: Readonly<DenominationCoins> = {
-  1: 40,
-  2: 40,
-  5: 30,
-  10: 50,
-  20: 20,
-  50: 40,
-}
-
-const countCoinRolls = (coins: Array<number> = []): CoinRolls => {
   const allCoins: Record<number, number> = coins.reduce((acc: DenominationCoins, coin) => {
     acc[coin] = acc[coin] ? acc[coin] + 1 : 1;
     return acc;
@@ -24,14 +12,19 @@ const countCoinRolls = (coins: Array<number> = []): CoinRolls => {
 
   const rollsPerCoin: CoinRolls = {};
   for (const coin in allCoins) {
+    const numberOfRolls = Math.floor(allCoins[coin] / denomination[coin]);
+    const restOfCoins = allCoins[coin] % denomination[coin];
     rollsPerCoin[coin] = {
-      rolls: Math.floor(allCoins[coin] / DENOMINATION_OF_COINS[coin]),
-      rest: allCoins[coin] % DENOMINATION_OF_COINS[coin]
+      rolls: isNaN(numberOfRolls) ? 0 : numberOfRolls,
+      rest: isNaN(restOfCoins) ? allCoins[coin] : restOfCoins,
     }
   }
 
   return rollsPerCoin;
 }
 
-const result = countCoinRolls(data.coins);
+const result = countCoinRolls(data, DENOMINATION_OF_COINS);
+
+console.log('*******Arranged coins*******');
 console.log(result);
+console.log('****************************');
