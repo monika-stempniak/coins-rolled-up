@@ -2,7 +2,12 @@ import { coins as data } from "./data";
 import { DenominationCoins, CoinRolls } from "./types";
 import { DENOMINATION_OF_COINS } from "./constants";
 
-export const countCoinRolls = (coins: Array<number> = [], denomination: DenominationCoins): CoinRolls | null => {
+export const countCoinRolls = (listOfCoins: Array<number> = [], denomination: DenominationCoins): CoinRolls | null => {
+  let coins = [...listOfCoins];
+  if (listOfCoins.some(coin => !Number.isInteger(coin))) {
+    coins = listOfCoins.filter(coin => Number.isInteger(coin));
+  }
+
   if (coins.length === 0) return null;
 
   const allCoins: Record<number, number> = coins.reduce((acc: DenominationCoins, coin) => {
